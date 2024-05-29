@@ -4,7 +4,7 @@ import 'package:quizo/models/question.dart';
 part 'quiz.freezed.dart';
 
 @freezed
-class Quiz with _$Quiz{
+class Quiz with _$Quiz {
   const factory Quiz({
     required String targetUuid,
     required List<Question> questions,

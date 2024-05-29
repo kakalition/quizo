@@ -18,8 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Question {
   int get index => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
-  Map<String, String> get answers => throw _privateConstructorUsedError;
+  List<String> get answers => throw _privateConstructorUsedError;
   String get correctAnswer => throw _privateConstructorUsedError;
+  String get explanation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QuestionCopyWith<Question> get copyWith =>
@@ -34,8 +35,9 @@ abstract class $QuestionCopyWith<$Res> {
   $Res call(
       {int index,
       String question,
-      Map<String, String> answers,
-      String correctAnswer});
+      List<String> answers,
+      String correctAnswer,
+      String explanation});
 }
 
 /// @nodoc
@@ -55,6 +57,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
     Object? question = null,
     Object? answers = null,
     Object? correctAnswer = null,
+    Object? explanation = null,
   }) {
     return _then(_value.copyWith(
       index: null == index
@@ -68,10 +71,14 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
       answers: null == answers
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
+              as List<String>,
       correctAnswer: null == correctAnswer
           ? _value.correctAnswer
           : correctAnswer // ignore: cast_nullable_to_non_nullable
+              as String,
+      explanation: null == explanation
+          ? _value.explanation
+          : explanation // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -88,8 +95,9 @@ abstract class _$$QuestionImplCopyWith<$Res>
   $Res call(
       {int index,
       String question,
-      Map<String, String> answers,
-      String correctAnswer});
+      List<String> answers,
+      String correctAnswer,
+      String explanation});
 }
 
 /// @nodoc
@@ -107,6 +115,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
     Object? question = null,
     Object? answers = null,
     Object? correctAnswer = null,
+    Object? explanation = null,
   }) {
     return _then(_$QuestionImpl(
       index: null == index
@@ -120,10 +129,14 @@ class __$$QuestionImplCopyWithImpl<$Res>
       answers: null == answers
           ? _value._answers
           : answers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
+              as List<String>,
       correctAnswer: null == correctAnswer
           ? _value.correctAnswer
           : correctAnswer // ignore: cast_nullable_to_non_nullable
+              as String,
+      explanation: null == explanation
+          ? _value.explanation
+          : explanation // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -135,28 +148,31 @@ class _$QuestionImpl implements _Question {
   const _$QuestionImpl(
       {required this.index,
       required this.question,
-      required final Map<String, String> answers,
-      required this.correctAnswer})
+      required final List<String> answers,
+      required this.correctAnswer,
+      required this.explanation})
       : _answers = answers;
 
   @override
   final int index;
   @override
   final String question;
-  final Map<String, String> _answers;
+  final List<String> _answers;
   @override
-  Map<String, String> get answers {
-    if (_answers is EqualUnmodifiableMapView) return _answers;
+  List<String> get answers {
+    if (_answers is EqualUnmodifiableListView) return _answers;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_answers);
+    return EqualUnmodifiableListView(_answers);
   }
 
   @override
   final String correctAnswer;
+  @override
+  final String explanation;
 
   @override
   String toString() {
-    return 'Question(index: $index, question: $question, answers: $answers, correctAnswer: $correctAnswer)';
+    return 'Question(index: $index, question: $question, answers: $answers, correctAnswer: $correctAnswer, explanation: $explanation)';
   }
 
   @override
@@ -169,12 +185,19 @@ class _$QuestionImpl implements _Question {
                 other.question == question) &&
             const DeepCollectionEquality().equals(other._answers, _answers) &&
             (identical(other.correctAnswer, correctAnswer) ||
-                other.correctAnswer == correctAnswer));
+                other.correctAnswer == correctAnswer) &&
+            (identical(other.explanation, explanation) ||
+                other.explanation == explanation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index, question,
-      const DeepCollectionEquality().hash(_answers), correctAnswer);
+  int get hashCode => Object.hash(
+      runtimeType,
+      index,
+      question,
+      const DeepCollectionEquality().hash(_answers),
+      correctAnswer,
+      explanation);
 
   @JsonKey(ignore: true)
   @override
@@ -187,17 +210,20 @@ abstract class _Question implements Question {
   const factory _Question(
       {required final int index,
       required final String question,
-      required final Map<String, String> answers,
-      required final String correctAnswer}) = _$QuestionImpl;
+      required final List<String> answers,
+      required final String correctAnswer,
+      required final String explanation}) = _$QuestionImpl;
 
   @override
   int get index;
   @override
   String get question;
   @override
-  Map<String, String> get answers;
+  List<String> get answers;
   @override
   String get correctAnswer;
+  @override
+  String get explanation;
   @override
   @JsonKey(ignore: true)
   _$$QuestionImplCopyWith<_$QuestionImpl> get copyWith =>

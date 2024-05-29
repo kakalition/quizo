@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quizo/models/menu_path.dart';
+import 'package:quizo/quiz_page.dart';
 import 'package:quizo/theme.dart';
 import 'package:quizo/util.dart';
 
@@ -90,7 +91,7 @@ class _MenuPathPageState extends State<MenuPathPage> {
               ),
             ],
           ),
-          const MenuPath(
+          MenuPath(
             uuid: '3',
             title: 'Kelas 9 SMP',
             description: '',
@@ -114,8 +115,6 @@ class _MenuPathPageState extends State<MenuPathPage> {
     } else {
       currentPath = widget.path!;
     }
-
-    print(currentPath.toString());
   }
 
   @override
@@ -184,20 +183,53 @@ class MenuPathTile extends StatelessWidget {
     return Material(
       child: InkWell(
         onTap: () {
+          if (path.children.isNotEmpty) {
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, _, __) {
+                  return MenuPathPage(
+                    init: false,
+                    path: path,
+                  );
+                },
+                transitionDuration: const Duration(milliseconds: 200),
+                reverseTransitionDuration: const Duration(milliseconds: 200),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+              ),
+            );
+
+            return;
+          }
+
           Navigator.of(context).push(
             PageRouteBuilder(
               pageBuilder: (context, _, __) {
-                return MenuPathPage(
-                  init: false,
-                  path: path,
+                return QuizPage(
+                  uuid: path.uuid,
+                  title: path.title,
                 );
               },
               transitionDuration: const Duration(milliseconds: 500),
               reverseTransitionDuration: const Duration(milliseconds: 500),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
-                return FadeTransition(
-                  opacity: animation,
+                return SlideTransition(
+                  position: Tween(
+                    begin: const Offset(0, 1),
+                    end: Offset.zero,
+                  )
+                      .chain(
+                        CurveTween(
+                          curve: Curves.easeInOutCubicEmphasized,
+                        ),
+                      )
+                      .animate(animation),
                   child: child,
                 );
               },
