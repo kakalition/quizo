@@ -6,7 +6,9 @@ part 'quiz.freezed.dart';
 @freezed
 class Quiz with _$Quiz {
   const factory Quiz({
-    required String targetUuid,
+    required String uuid,
+    required String appUuid,
+    required String menuUuid,
     required List<Question> questions,
   }) = _Quiz;
 }

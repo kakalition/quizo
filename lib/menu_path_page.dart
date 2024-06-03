@@ -195,8 +195,7 @@ class MenuPathTile extends StatelessWidget {
             PageRouteBuilder(
               pageBuilder: (context, _, __) {
                 return QuizPage(
-                  uuid: path.uuid,
-                  title: path.name,
+                  menuPath: path,
                 );
               },
               transitionDuration: const Duration(milliseconds: 500),

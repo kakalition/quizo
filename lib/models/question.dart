@@ -6,9 +6,10 @@ part 'question.freezed.dart';
 class Question with _$Question {
   const factory Question({
     required int index,
+    required String uuid,
     required String question,
     required List<String> answers,
-    required String correctAnswer,
+    required int correctAnswer,
     required String explanation,
   }) = _Question;
 }

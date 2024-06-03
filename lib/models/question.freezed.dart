@@ -17,9 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Question {
   int get index => throw _privateConstructorUsedError;
+  String get uuid => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
   List<String> get answers => throw _privateConstructorUsedError;
-  String get correctAnswer => throw _privateConstructorUsedError;
+  int get correctAnswer => throw _privateConstructorUsedError;
   String get explanation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -34,9 +35,10 @@ abstract class $QuestionCopyWith<$Res> {
   @useResult
   $Res call(
       {int index,
+      String uuid,
       String question,
       List<String> answers,
-      String correctAnswer,
+      int correctAnswer,
       String explanation});
 }
 
@@ -54,6 +56,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
   @override
   $Res call({
     Object? index = null,
+    Object? uuid = null,
     Object? question = null,
     Object? answers = null,
     Object? correctAnswer = null,
@@ -64,6 +67,10 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int,
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
@@ -75,7 +82,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
       correctAnswer: null == correctAnswer
           ? _value.correctAnswer
           : correctAnswer // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       explanation: null == explanation
           ? _value.explanation
           : explanation // ignore: cast_nullable_to_non_nullable
@@ -94,9 +101,10 @@ abstract class _$$QuestionImplCopyWith<$Res>
   @useResult
   $Res call(
       {int index,
+      String uuid,
       String question,
       List<String> answers,
-      String correctAnswer,
+      int correctAnswer,
       String explanation});
 }
 
@@ -112,6 +120,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? index = null,
+    Object? uuid = null,
     Object? question = null,
     Object? answers = null,
     Object? correctAnswer = null,
@@ -122,6 +131,10 @@ class __$$QuestionImplCopyWithImpl<$Res>
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int,
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
@@ -133,7 +146,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
       correctAnswer: null == correctAnswer
           ? _value.correctAnswer
           : correctAnswer // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       explanation: null == explanation
           ? _value.explanation
           : explanation // ignore: cast_nullable_to_non_nullable
@@ -147,6 +160,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
 class _$QuestionImpl implements _Question {
   const _$QuestionImpl(
       {required this.index,
+      required this.uuid,
       required this.question,
       required final List<String> answers,
       required this.correctAnswer,
@@ -155,6 +169,8 @@ class _$QuestionImpl implements _Question {
 
   @override
   final int index;
+  @override
+  final String uuid;
   @override
   final String question;
   final List<String> _answers;
@@ -166,13 +182,13 @@ class _$QuestionImpl implements _Question {
   }
 
   @override
-  final String correctAnswer;
+  final int correctAnswer;
   @override
   final String explanation;
 
   @override
   String toString() {
-    return 'Question(index: $index, question: $question, answers: $answers, correctAnswer: $correctAnswer, explanation: $explanation)';
+    return 'Question(index: $index, uuid: $uuid, question: $question, answers: $answers, correctAnswer: $correctAnswer, explanation: $explanation)';
   }
 
   @override
@@ -181,6 +197,7 @@ class _$QuestionImpl implements _Question {
         (other.runtimeType == runtimeType &&
             other is _$QuestionImpl &&
             (identical(other.index, index) || other.index == index) &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.question, question) ||
                 other.question == question) &&
             const DeepCollectionEquality().equals(other._answers, _answers) &&
@@ -194,6 +211,7 @@ class _$QuestionImpl implements _Question {
   int get hashCode => Object.hash(
       runtimeType,
       index,
+      uuid,
       question,
       const DeepCollectionEquality().hash(_answers),
       correctAnswer,
@@ -209,19 +227,22 @@ class _$QuestionImpl implements _Question {
 abstract class _Question implements Question {
   const factory _Question(
       {required final int index,
+      required final String uuid,
       required final String question,
       required final List<String> answers,
-      required final String correctAnswer,
+      required final int correctAnswer,
       required final String explanation}) = _$QuestionImpl;
 
   @override
   int get index;
   @override
+  String get uuid;
+  @override
   String get question;
   @override
   List<String> get answers;
   @override
-  String get correctAnswer;
+  int get correctAnswer;
   @override
   String get explanation;
   @override

@@ -16,7 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Quiz {
-  String get targetUuid => throw _privateConstructorUsedError;
+  String get uuid => throw _privateConstructorUsedError;
+  String get appUuid => throw _privateConstructorUsedError;
+  String get menuUuid => throw _privateConstructorUsedError;
   List<Question> get questions => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -28,7 +30,8 @@ abstract class $QuizCopyWith<$Res> {
   factory $QuizCopyWith(Quiz value, $Res Function(Quiz) then) =
       _$QuizCopyWithImpl<$Res, Quiz>;
   @useResult
-  $Res call({String targetUuid, List<Question> questions});
+  $Res call(
+      {String uuid, String appUuid, String menuUuid, List<Question> questions});
 }
 
 /// @nodoc
@@ -44,13 +47,23 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? targetUuid = null,
+    Object? uuid = null,
+    Object? appUuid = null,
+    Object? menuUuid = null,
     Object? questions = null,
   }) {
     return _then(_value.copyWith(
-      targetUuid: null == targetUuid
-          ? _value.targetUuid
-          : targetUuid // ignore: cast_nullable_to_non_nullable
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      appUuid: null == appUuid
+          ? _value.appUuid
+          : appUuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      menuUuid: null == menuUuid
+          ? _value.menuUuid
+          : menuUuid // ignore: cast_nullable_to_non_nullable
               as String,
       questions: null == questions
           ? _value.questions
@@ -67,7 +80,8 @@ abstract class _$$QuizImplCopyWith<$Res> implements $QuizCopyWith<$Res> {
       __$$QuizImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String targetUuid, List<Question> questions});
+  $Res call(
+      {String uuid, String appUuid, String menuUuid, List<Question> questions});
 }
 
 /// @nodoc
@@ -80,13 +94,23 @@ class __$$QuizImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? targetUuid = null,
+    Object? uuid = null,
+    Object? appUuid = null,
+    Object? menuUuid = null,
     Object? questions = null,
   }) {
     return _then(_$QuizImpl(
-      targetUuid: null == targetUuid
-          ? _value.targetUuid
-          : targetUuid // ignore: cast_nullable_to_non_nullable
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      appUuid: null == appUuid
+          ? _value.appUuid
+          : appUuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      menuUuid: null == menuUuid
+          ? _value.menuUuid
+          : menuUuid // ignore: cast_nullable_to_non_nullable
               as String,
       questions: null == questions
           ? _value._questions
@@ -100,11 +124,18 @@ class __$$QuizImplCopyWithImpl<$Res>
 
 class _$QuizImpl implements _Quiz {
   const _$QuizImpl(
-      {required this.targetUuid, required final List<Question> questions})
+      {required this.uuid,
+      required this.appUuid,
+      required this.menuUuid,
+      required final List<Question> questions})
       : _questions = questions;
 
   @override
-  final String targetUuid;
+  final String uuid;
+  @override
+  final String appUuid;
+  @override
+  final String menuUuid;
   final List<Question> _questions;
   @override
   List<Question> get questions {
@@ -115,7 +146,7 @@ class _$QuizImpl implements _Quiz {
 
   @override
   String toString() {
-    return 'Quiz(targetUuid: $targetUuid, questions: $questions)';
+    return 'Quiz(uuid: $uuid, appUuid: $appUuid, menuUuid: $menuUuid, questions: $questions)';
   }
 
   @override
@@ -123,15 +154,17 @@ class _$QuizImpl implements _Quiz {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$QuizImpl &&
-            (identical(other.targetUuid, targetUuid) ||
-                other.targetUuid == targetUuid) &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
+            (identical(other.appUuid, appUuid) || other.appUuid == appUuid) &&
+            (identical(other.menuUuid, menuUuid) ||
+                other.menuUuid == menuUuid) &&
             const DeepCollectionEquality()
                 .equals(other._questions, _questions));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, targetUuid, const DeepCollectionEquality().hash(_questions));
+  int get hashCode => Object.hash(runtimeType, uuid, appUuid, menuUuid,
+      const DeepCollectionEquality().hash(_questions));
 
   @JsonKey(ignore: true)
   @override
@@ -142,11 +175,17 @@ class _$QuizImpl implements _Quiz {
 
 abstract class _Quiz implements Quiz {
   const factory _Quiz(
-      {required final String targetUuid,
+      {required final String uuid,
+      required final String appUuid,
+      required final String menuUuid,
       required final List<Question> questions}) = _$QuizImpl;
 
   @override
-  String get targetUuid;
+  String get uuid;
+  @override
+  String get appUuid;
+  @override
+  String get menuUuid;
   @override
   List<Question> get questions;
   @override
