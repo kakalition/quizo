@@ -17,8 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$MenuPath {
   String get uuid => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  String? get appUuid => throw _privateConstructorUsedError;
+  String? get parentUuid => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  int get index => throw _privateConstructorUsedError;
   List<MenuPath> get children => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,7 +34,12 @@ abstract class $MenuPathCopyWith<$Res> {
       _$MenuPathCopyWithImpl<$Res, MenuPath>;
   @useResult
   $Res call(
-      {String uuid, String title, String description, List<MenuPath> children});
+      {String uuid,
+      String? appUuid,
+      String? parentUuid,
+      String name,
+      int index,
+      List<MenuPath> children});
 }
 
 /// @nodoc
@@ -49,8 +56,10 @@ class _$MenuPathCopyWithImpl<$Res, $Val extends MenuPath>
   @override
   $Res call({
     Object? uuid = null,
-    Object? title = null,
-    Object? description = null,
+    Object? appUuid = freezed,
+    Object? parentUuid = freezed,
+    Object? name = null,
+    Object? index = null,
     Object? children = null,
   }) {
     return _then(_value.copyWith(
@@ -58,14 +67,22 @@ class _$MenuPathCopyWithImpl<$Res, $Val extends MenuPath>
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
               as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      appUuid: freezed == appUuid
+          ? _value.appUuid
+          : appUuid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      parentUuid: freezed == parentUuid
+          ? _value.parentUuid
+          : parentUuid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
       children: null == children
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
@@ -83,7 +100,12 @@ abstract class _$$MenuPathImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String uuid, String title, String description, List<MenuPath> children});
+      {String uuid,
+      String? appUuid,
+      String? parentUuid,
+      String name,
+      int index,
+      List<MenuPath> children});
 }
 
 /// @nodoc
@@ -98,8 +120,10 @@ class __$$MenuPathImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uuid = null,
-    Object? title = null,
-    Object? description = null,
+    Object? appUuid = freezed,
+    Object? parentUuid = freezed,
+    Object? name = null,
+    Object? index = null,
     Object? children = null,
   }) {
     return _then(_$MenuPathImpl(
@@ -107,14 +131,22 @@ class __$$MenuPathImplCopyWithImpl<$Res>
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
               as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      appUuid: freezed == appUuid
+          ? _value.appUuid
+          : appUuid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      parentUuid: freezed == parentUuid
+          ? _value.parentUuid
+          : parentUuid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
       children: null == children
           ? _value._children
           : children // ignore: cast_nullable_to_non_nullable
@@ -128,17 +160,23 @@ class __$$MenuPathImplCopyWithImpl<$Res>
 class _$MenuPathImpl implements _MenuPath {
   const _$MenuPathImpl(
       {required this.uuid,
-      required this.title,
-      required this.description,
+      required this.appUuid,
+      required this.parentUuid,
+      required this.name,
+      required this.index,
       required final List<MenuPath> children})
       : _children = children;
 
   @override
   final String uuid;
   @override
-  final String title;
+  final String? appUuid;
   @override
-  final String description;
+  final String? parentUuid;
+  @override
+  final String name;
+  @override
+  final int index;
   final List<MenuPath> _children;
   @override
   List<MenuPath> get children {
@@ -149,7 +187,7 @@ class _$MenuPathImpl implements _MenuPath {
 
   @override
   String toString() {
-    return 'MenuPath(uuid: $uuid, title: $title, description: $description, children: $children)';
+    return 'MenuPath(uuid: $uuid, appUuid: $appUuid, parentUuid: $parentUuid, name: $name, index: $index, children: $children)';
   }
 
   @override
@@ -158,15 +196,17 @@ class _$MenuPathImpl implements _MenuPath {
         (other.runtimeType == runtimeType &&
             other is _$MenuPathImpl &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
+            (identical(other.appUuid, appUuid) || other.appUuid == appUuid) &&
+            (identical(other.parentUuid, parentUuid) ||
+                other.parentUuid == parentUuid) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.index, index) || other.index == index) &&
             const DeepCollectionEquality().equals(other._children, _children));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, uuid, title, description,
-      const DeepCollectionEquality().hash(_children));
+  int get hashCode => Object.hash(runtimeType, uuid, appUuid, parentUuid, name,
+      index, const DeepCollectionEquality().hash(_children));
 
   @JsonKey(ignore: true)
   @override
@@ -178,16 +218,22 @@ class _$MenuPathImpl implements _MenuPath {
 abstract class _MenuPath implements MenuPath {
   const factory _MenuPath(
       {required final String uuid,
-      required final String title,
-      required final String description,
+      required final String? appUuid,
+      required final String? parentUuid,
+      required final String name,
+      required final int index,
       required final List<MenuPath> children}) = _$MenuPathImpl;
 
   @override
   String get uuid;
   @override
-  String get title;
+  String? get appUuid;
   @override
-  String get description;
+  String? get parentUuid;
+  @override
+  String get name;
+  @override
+  int get index;
   @override
   List<MenuPath> get children;
   @override

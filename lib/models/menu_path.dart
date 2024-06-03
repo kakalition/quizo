@@ -6,8 +6,10 @@ part 'menu_path.freezed.dart';
 class MenuPath with _$MenuPath {
   const factory MenuPath({
     required String uuid,
-    required String title,
-    required String description,
+    required String? appUuid,
+    required String? parentUuid,
+    required String name,
+    required int index,
     required List<MenuPath> children,
   }) = _MenuPath;
 }
