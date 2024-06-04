@@ -1,15 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:quizo/constants.dart';
 import 'package:quizo/models/menu_path.dart';
 import 'package:quizo/quiz_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MenuPathPage extends StatefulWidget {
-  const MenuPathPage({super.key, required this.init, this.path});
+  const MenuPathPage({
+    super.key,
+    required this.init,
+    this.path,
+    this.user,
+  });
 
   final bool init;
   final MenuPath? path;
+  final User? user;
 
   @override
   State<MenuPathPage> createState() => _MenuPathPageState();
@@ -25,6 +33,8 @@ class _MenuPathPageState extends State<MenuPathPage> {
     children: [],
   );
 
+  User? currentUser;
+
   Future<MenuPath> fetchMenu() async {
     final response =
         await Dio().get('$BASE_URL/applications/$APPLICATION_UUID/menus');
@@ -34,7 +44,7 @@ class _MenuPathPageState extends State<MenuPathPage> {
         return MenuPath(
           uuid: e['uuid'] ?? '',
           name: e['name'] ?? '',
-          index: e['index'] ?? 0,
+          index: int.tryParse(e['index']) ?? 0,
           appUuid: e['appUuid'],
           parentUuid: e['parentUuid'],
           children: [],
@@ -69,6 +79,8 @@ class _MenuPathPageState extends State<MenuPathPage> {
   void initState() {
     super.initState();
 
+    currentUser = widget.user;
+
     if (widget.init) {
       fetchMenu().then(
         (value) {
@@ -92,7 +104,36 @@ class _MenuPathPageState extends State<MenuPathPage> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: GestureDetector(
+              onTap: () async {
+                final user = await _nativeGoogleSignIn();
+                setState(() {
+                  currentUser = user;
+                });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.person_2_outlined,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    widget.user == null
+                        ? 'Belum Login'
+                        : widget.user?.email ?? '-',
+                    style: GoogleFonts.robotoFlex(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -257,4 +298,36 @@ class MenuPathTile extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<User?> _nativeGoogleSignIn() async {
+  const webClientId =
+      '705823016887-kvkjeggudbr5j87k6tfrunkin90ftfet.apps.googleusercontent.com';
+  const mobileClientId =
+      '705823016887-lop5f0nducif9qjipnfhb7acrvfn6cap.apps.googleusercontent.com';
+
+  final GoogleSignIn googleSignIn = GoogleSignIn(
+    clientId: mobileClientId,
+    serverClientId: webClientId,
+  );
+
+  final googleUser = await googleSignIn.signIn();
+  final googleAuth = await googleUser!.authentication;
+  final accessToken = googleAuth.accessToken;
+  final idToken = googleAuth.idToken;
+
+  if (accessToken == null) {
+    throw 'No Access Token found.';
+  }
+  if (idToken == null) {
+    throw 'No ID Token found.';
+  }
+
+  final user = await Supabase.instance.client.auth.signInWithIdToken(
+    provider: OAuthProvider.google,
+    idToken: idToken,
+    accessToken: accessToken,
+  );
+
+  return user.user;
 }

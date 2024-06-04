@@ -1,7 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quizo/constants.dart';
 import 'package:quizo/models/menu_path.dart';
@@ -22,6 +21,8 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   final player = AudioPlayer();
+
+  int currentTimer = 150;
 
   var currentIndex = 0;
   int currentAnswer = 0;
@@ -68,6 +69,17 @@ class _QuizPageState extends State<QuizPage> {
         });
       },
     );
+
+    Stream.periodic(
+      const Duration(seconds: 1),
+      (value) => value,
+    ).listen(
+      (event) {
+        setState(() {
+          currentTimer -= 1;
+        });
+      },
+    );
   }
 
   @override
@@ -82,6 +94,35 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                CircularProgressIndicator(
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                  strokeWidth: 3,
+                  value: currentTimer.abs() / 150,
+                ),
+                Center(
+                  child: Text(
+                    currentTimer.toString(),
+                    style: GoogleFonts.robotoFlex(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.5),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
